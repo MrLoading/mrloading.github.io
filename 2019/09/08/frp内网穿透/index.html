@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.mrloading.cn">
-  <title>Category: conda | Home</title>
+  <title>frp内网穿透 | Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Home">
-<meta property="og:url" content="http://www.mrloading.cn/categories/conda/index.html">
+  <meta name="description" content="几经失败,终于实现了frp反向代理,校园网资源的外网访问">
+<meta name="keywords" content="内网穿透,frp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="frp内网穿透">
+<meta property="og:url" content="http://www.mrloading.cn/2019/09/08/frp内网穿透/index.html">
 <meta property="og:site_name" content="Home">
+<meta property="og:description" content="几经失败,终于实现了frp反向代理,校园网资源的外网访问">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-07T16:45:02.183Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Home">
+<meta name="twitter:title" content="frp内网穿透">
+<meta name="twitter:description" content="几经失败,终于实现了frp反向代理,校园网资源的外网访问">
   
     <link rel="alternative" href="/atom.xml" title="Home" type="application/atom+xml">
   
@@ -142,79 +147,260 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-frp内网穿透" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/07/conda-install-fails/" class="archive-article-date">
-  	<time datetime="2019-09-07T13:39:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-07</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/07/conda-install-fails/">conda-install-fails</a>
+    <h1 class="article-title" itemprop="name">
+      frp内网穿透
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/09/08/frp内网穿透/" class="archive-article-date">
+  	<time datetime="2019-09-07T16:36:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文实现了:<br>校园网资源的外网访问</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>frp 是一个可用于内网穿透的高性能的反向代理应用,而且开源.<br>临近假期,但作为一个小白,想用外网访问校园网的学术资源,各平台的内网穿透教程无法满足需求(看不懂).<br>几经失败,终于实现了frp反向代理,现将经验总结如下:</p>
+</blockquote>
+<h4 id="配置前准备"><a href="#配置前准备" class="headerlink" title="配置前准备"></a>配置前准备</h4><ul>
+<li>公网服务器1台(有公网IP, 我的是centos7环境)<ul>
+<li>内网服务器1台（我的是win10环境，学校机房都是windows，其他系统配置类似）。</li>
+</ul>
+</li>
+<li>内网服务器必须可以连接到校园网,一般可以申请学校机房的机器</li>
+</ul>
+<h4 id="安装frp"><a href="#安装frp" class="headerlink" title="安装frp"></a>安装frp</h4><p>公网服务器端和内网服务器都要安装frp, 不同的是公网服务器安装的是<code>frps</code>(服务端), 内网服务器安装的是<code>frpc</code>(客户端)</p>
+<ol>
+<li>选择下载版本<ul>
+<li>frp官方下载地址<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">点此</a> </li>
+<li>以下<code>***</code>指软件版本号：</li>
+<li>公网服务器(centos7,X86架构)需要下载Linux版<code>frp_***_linux_386.tar.gz</code> </li>
+<li>内网服务器(windows10,X86架构)需要下载win版<code>frp_***_windows_386.zip</code></li>
+<li>若为其他架构,请自行选择</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li>公网服务器端的安装配置</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载frp软件包</span></span><br><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.22.0/frp_0.22.0_linux_386.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar -zxvf  frp_0.22.0_linux_386.tar.gz</span><br><span class="line"><span class="comment"># 配置</span></span><br><span class="line">vi ./frps.ini</span><br></pre></td></tr></table></figure>
+
+<p>按<code>i</code>进入编辑模式,写入如下内容:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000           #内网服务器与公网服务器绑定的进行通信的端口</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个端口仅仅是用来client和server通信,server和client所有的通信都通过这个端口</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> client可能有多个,client配置也是易变的</span></span><br></pre></td></tr></table></figure>
+
+<p>按<code>ESC</code>到命令模式,输入<code>:wq</code>保存退出</p>
+<p>启动服务<code>./frps -c ./frps.ini</code>,这是前台启动,后台启动命令为<code>nohup ./frps -c ./frps.ini &amp;</code></p>
+<p>另一种更方便后台运行方式为使用<code>tmux</code>，详见<a href="#">tmux基本操作</a> </p>
+<ol start="3">
+<li><p>内网服务器端的安装配置</p>
+<ul>
+<li><p>配置启动frpc</p>
+<p>将下载到本地(win10)的<code>frp_***_windows_386.zip</code>解压,用notepad++打开<code>frpc.ini</code>修改配置:</p>
+</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 233.333.333.333   #公网服务器ip</span><br><span class="line">server_port = 7000            #与服务端bind_port一致</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">公网通过ssh访问内网服务器</span></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp              #连接协议</span><br><span class="line">local_ip = 127.0.0.1 #内网服务器ip</span><br><span class="line">local_port = 8082         #ssh转发端口号(后面用到S-S转发,8082是S-S的服务端口)</span><br><span class="line">remote_port = 6000      #自定义的访问内部ssh端口号</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关于配置文件的一些<strong>胡思乱想</strong>:<br><code>remote_port = 6000</code> 这个端口实际上指的是<code>server</code>的端口,<code>server</code>访问server:<code>6000</code>—&gt;client:<code>8082</code><br><strong>疑问</strong>:<br>   为什么server的哪个端口映射到client:8082<code>不是在server端配置的</code>? <code>而是client决定的</code>,反人类啊!<br><strong>胡乱猜测</strong>:<br> <code>前提:</code><br>client可能有多个,client配置也是易变<br> <code>导致:</code><br>server不知道client会有多少个, 无法提前准备转发端口,<br>即使提前预留的server端的端口, 也无法知道每个端口具体留给哪个client(都不知道有几个client)<br><code>解决方案:</code><br>由client通知server它该用自己的哪个端口,(通过server_port = 7000,bind_port = 7000 告知)<br><strong>优点:</strong><br>server的端口是十分宝贵的,当client上线再分配server端口,client下线就释放.节约端口资源,灵活性高,减少了server端的配置修改次数<br><strong>缺点:</strong><br>1.client指明了要用server的哪个端口,但<code>server可能满足不了client</code></p>
+<ol start="2">
+<li>不能提前管理防火墙的端口开关, 若为了方便关闭防火墙则<code>会有安全隐患</code></li>
+</ol>
+<p><strong>如:</strong></p>
+<ol>
+<li><code>client:  remote_port = 80</code>指明要用server的80端口, 如果server:80已经<code>被web_server占用</code>, 则会导致端口分配失败</li>
+<li>client要求的端口被防火墙保护,分配<code>成功后也无法通信</code></li>
+</ol>
+</blockquote>
+<p>在frpc.exe所在目录下按<code>shift+右键</code>,选择启动powershell</p>
+<p>在powershell中执行<code>./frpc -c ./frpc.ini</code>启动frpc</p>
+<h4 id="安装-配置启动S-S转发-使用S-S转发-在外网访问时更方便"><a href="#安装-配置启动S-S转发-使用S-S转发-在外网访问时更方便" class="headerlink" title="安装 配置启动S-S转发(使用S-S转发, 在外网访问时更方便)"></a>安装 配置启动S-S转发(使用S-S转发, 在外网访问时更方便)</h4><ul>
+<li><p>下载最新的<a href="https://github.com/shadowsocks/libQtShadowsocks/releases" target="_blank" rel="noopener">libQtShadowsocks</a> </p>
+</li>
+<li><p>将<code>shadowsocks-libqss.exe</code>解压到<code>frpc.exe</code>同一目录下(方便管理)<br>  在该目录下创建<code>config.json</code>文件,写入如下内容:(配置文件格式<a href="https://github.com/shadowsocks/libQtShadowsocks/blob/master/shadowsocks-libqss/config.json" target="_blank" rel="noopener">点此</a>)</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">"server":"0.0.0.0",                  # 如果走IPv6线路,填”::”</span><br><span class="line">"server_port":8082,              # S-S服务端口</span><br><span class="line">"local_address":"127.0.0.1",</span><br><span class="line">"local_port":1080,</span><br><span class="line">"password":"barfoo!",           # S-S密码</span><br><span class="line">"timeout":600,</span><br><span class="line">"method":"rc4-md5",           # 加密方式</span><br><span class="line">"http_proxy": false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在当前目录下按<code>shift+右键</code>,选择启动powershell<br>在powershell中执行<code>./shadowsocks-libqss.exe -S</code>启动S-S</p>
+<p><strong>到此,内网穿功能透架设完成, 在外网怎么使用哪?</strong></p>
+<p>Windows平台:<br><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">shadowsocks-windows</a> 下载最新S-SWindows客户端<br>启动后双击任务栏小飞机图标,编辑服务器:</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">服务器地址</td>
+<td align="left">233.333.333(填公网服务器的IP地址)</td>
+</tr>
+<tr>
+<td align="left">服务器端口</td>
+<td align="left">6000</td>
+</tr>
+<tr>
+<td align="left">密码</td>
+<td align="left">填上一步的S-S密码</td>
+</tr>
+<tr>
+<td align="left">加密</td>
+<td align="left">填和上一步加密方式相同</td>
+</tr>
+</tbody></table>
+<p>保存后在任务栏小飞机图标右键选择服务器使用刚刚编辑的这个服务器,代理方式为<strong>全局代理</strong></p>
+<h4 id="改进之处"><a href="#改进之处" class="headerlink" title="改进之处"></a>改进之处</h4><ul>
+<li>不能代理172.*等局域网的ip（也可能是我不会配置）</li>
+</ul>
+<p>okk!</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">conda</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网穿透</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">运维</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">frp</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/conda//" class="article-tag-list-link color1">conda</a>
+        			<a href="/categories/默认分类//" class="article-tag-list-link color5">默认分类</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.mrloading.cn/2019/09/08/frp内网穿透/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/09/07/conda-install-fails/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">conda-install-fails</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -237,10 +423,10 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
