@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.mrloading.cn">
-  <title>Home</title>
+  <title>新路由3Newifi3_D2免拆机免解锁刷 Breed | Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Home">
-<meta property="og:url" content="http://www.mrloading.cn/index.html">
+  <meta name="description" content="免拆机免解锁刷 Breed (任何newWiFi3-d2固件都ok)  开启固件 SSH  a) 开启路由器，进入管理界面 (假设路由器 IP 地址是 192.168.99.1)">
+<meta name="keywords" content="路由器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="新路由3Newifi3_D2免拆机免解锁刷 Breed">
+<meta property="og:url" content="http://www.mrloading.cn/2019/09/18/新路由3Newifi3-D2免拆机免解锁刷-Breed/index.html">
 <meta property="og:site_name" content="Home">
+<meta property="og:description" content="免拆机免解锁刷 Breed (任何newWiFi3-d2固件都ok)  开启固件 SSH  a) 开启路由器，进入管理界面 (假设路由器 IP 地址是 192.168.99.1)">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-18T14:19:31.771Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Home">
+<meta name="twitter:title" content="新路由3Newifi3_D2免拆机免解锁刷 Breed">
+<meta name="twitter:description" content="免拆机免解锁刷 Breed (任何newWiFi3-d2固件都ok)  开启固件 SSH  a) 开启路由器，进入管理界面 (假设路由器 IP 地址是 192.168.99.1)">
   
     <link rel="alternative" href="/atom.xml" title="Home" type="application/atom+xml">
   
@@ -142,16 +147,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-新路由3Newifi3-D2免拆机免解锁刷-Breed" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-新路由3Newifi3-D2免拆机免解锁刷-Breed" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/18/新路由3Newifi3-D2免拆机免解锁刷-Breed/">新路由3Newifi3_D2免拆机免解锁刷 Breed</a>
+    <h1 class="article-title" itemprop="name">
+      新路由3Newifi3_D2免拆机免解锁刷 Breed
     </h1>
   
 
@@ -168,9 +171,37 @@
 <li><p>免拆机免解锁刷 Breed (任何newWiFi3-d2固件都ok)</p>
 </li>
 <li><p>开启固件 SSH<br>  a) 开启路由器，进入管理界面 (假设路由器 IP 地址是 192.168.99.1)</p>
-        
-          <a class="article-more-a" href="/2019/09/18/新路由3Newifi3-D2免拆机免解锁刷-Breed/#more">more >></a>
-        
+  <a id="more"></a>
+<p>  b) 在浏览器中输入 <a href="http://192.168.99.1/newifi/ifiwen_hss.html" target="_blank" rel="noopener">http://192.168.99.1/newifi/ifiwen_hss.html</a> 并进入<br>  c) 页面显示 success 即表明已开启 SSH</p>
+</li>
+<li><p>进入路由器 SSH 环境</p>
+</li>
+<li><p>上传解锁文件到路由器<br>  a) 下载附件，解压得到 <code>newifi-d2-jail-break.ko</code><br>  b) 用 WinSCP 等工具将其上传到路由器的 <code>/tmp 目录</code><br>  e) 用 U 盘当然也行</p>
+</li>
+<li><p>开始解锁<br> a) SSH 进入 /tmp 目录 :<code>cd /tmp</code><br> b) 加载 newifi-d2-jail-break.ko<br> <code>insmod newifi-d2-jail-break.ko</code><br> c) 此时 SSH 会停止响应，因为 newifi-d2-jail-break.ko 会冻结系统的其他功能，强制写入 Newifi D2 专用版 Breed 到 Flash<br> d) 成功后路由器会自动重启。断电后按复位健/USB键开机均可进入 Breed</p>
+</li>
+</ul>
+<h2 id="brees控制台请求页面不存在"><a href="#brees控制台请求页面不存在" class="headerlink" title="brees控制台请求页面不存在"></a>brees控制台请求页面不存在</h2><ol>
+<li>清空浏览器缓存</li>
+<li>或新打开无痕浏览</li>
+</ol>
+<h2 id="相关的坑"><a href="#相关的坑" class="headerlink" title="相关的坑:"></a>相关的坑:</h2><h3 id="pppoe-server"><a href="#pppoe-server" class="headerlink" title="pppoe-server"></a>pppoe-server</h3><ol>
+<li>openwrt官方的包/官改的包都没有合适的pppoe-server软件包<code>勿用</code></li>
+<li>荒野无灯固件有<code>pppoe-server</code>和<code>ss</code>, 建议使用</li>
+<li>只要不拦截拨号,建议官方固件,稳定</li>
+</ol>
+<h3 id="荒野无灯固件-华硕Padavan没有opkg的问题"><a href="#荒野无灯固件-华硕Padavan没有opkg的问题" class="headerlink" title="荒野无灯固件-华硕Padavan没有opkg的问题"></a>荒野无灯固件-华硕Padavan没有opkg的问题</h3><ol>
+<li>发现<code>/usr/bin/</code>目录下存在<code>opkg.sh</code>文件, 但是输入<code>opkg</code>报错<code>opkg not foud</code></li>
+<li>原因: 固件做了精简, 默认opkg没有初始化</li>
+<li>处理方式: <ol>
+<li>直接运行<code>opkg.sh</code>会提示<code>/opt</code>分区未挂载, 介于NewWiFi3D2的内存比较大,直接挂载到内存虚拟文件系统中即可<code>mount -t tmpfs -o size=10M tmpfs /opt/</code></li>
+<li>挂载成功后运行<code>opkg.sh</code></li>
+<li>等待约<code>1 min</code>后即可正常使用</li>
+<li>ps: 卸载：<code>umount</code></li>
+</ol>
+</li>
+</ol>
+
       
 
       
@@ -205,10 +236,73 @@
       
 
       
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.mrloading.cn/2019/09/18/新路由3Newifi3-D2免拆机免解锁刷-Breed/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/10/supervisor安装配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">supervisor安装配置</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -228,349 +322,14 @@
 
 
 
-
   
-    <article id="post-supervisor安装配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/supervisor安装配置/">supervisor安装配置</a>
-    </h1>
   
 
-        
-        <a href="/2019/09/10/supervisor安装配置/" class="archive-article-date">
-  	<time datetime="2019-09-10T15:50:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>介绍</li>
-</ul>
-<p>Supervisor是一个客户端/服务器系统，Supervisor使用户能够监视和控制(启动、停止、重启)类UNIX系统上的众多进程。</p>
-        
-          <a class="article-more-a" href="/2019/09/10/supervisor安装配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/默认分类//" class="article-tag-list-link color5">默认分类</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-frp内网穿透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/08/frp内网穿透/">frp内网穿透</a>
-    </h1>
   
 
-        
-        <a href="/2019/09/08/frp内网穿透/" class="archive-article-date">
-  	<time datetime="2019-09-07T16:36:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文实现了:<br>校园网资源的外网访问</p>
-</blockquote>
-        
-          <a class="article-more-a" href="/2019/09/08/frp内网穿透/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网穿透</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">frp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/默认分类//" class="article-tag-list-link color5">默认分类</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-conda-install-fails" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/07/conda-install-fails/">conda-install-fails</a>
-    </h1>
   
 
-        
-        <a href="/2019/09/07/conda-install-fails/" class="archive-article-date">
-  	<time datetime="2019-09-07T13:39:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>运行<code>conda install ***</code>或<code>conda search ***</code>失败</li>
-</ul>
-<p>日志如下:</p>
-        
-          <a class="article-more-a" href="/2019/09/07/conda-install-fails/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">conda</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">运维</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/conda//" class="article-tag-list-link color1">conda</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-入坑hexo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/06/入坑hexo/">入坑hexo</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/06/入坑hexo/" class="archive-article-date">
-  	<time datetime="2019-09-06T12:35:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>思考不多，纵身跃下。</p>
-        
-          <a class="article-more-a" href="/2019/09/06/入坑hexo/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -593,8 +352,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
