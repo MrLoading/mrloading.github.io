@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.mrloading.cn">
-  <title>Tag: conda | Home</title>
+  <title>C++爬坑记录 | Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Home">
-<meta property="og:url" content="http://www.mrloading.cn/tags/conda/index.html">
+  <meta name="description" content="总结参加被全国大学生机器博弈大赛的各位大佬按在地上摩擦的经历">
+<meta name="keywords" content="随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++爬坑记录">
+<meta property="og:url" content="http://www.mrloading.cn/2019/10/15/C-爬坑记录/index.html">
 <meta property="og:site_name" content="Home">
+<meta property="og:description" content="总结参加被全国大学生机器博弈大赛的各位大佬按在地上摩擦的经历">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-15T14:42:00.889Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Home">
+<meta name="twitter:title" content="C++爬坑记录">
+<meta name="twitter:description" content="总结参加被全国大学生机器博弈大赛的各位大佬按在地上摩擦的经历">
   
     <link rel="alternative" href="/atom.xml" title="Home" type="application/atom+xml">
   
@@ -142,128 +147,188 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-C-爬坑记录" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/20/windows下conda安装tensorflow-报错DLL-load-failed-找不到指定的模块/" class="archive-article-date">
-  	<time datetime="2019-09-20T09:25:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/20/windows下conda安装tensorflow-报错DLL-load-failed-找不到指定的模块/">windows下conda安装tensorflow 报错DLL load failed: 找不到指定的模块</a>
+    <h1 class="article-title" itemprop="name">
+      C++爬坑记录
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/10/15/C-爬坑记录/" class="archive-article-date">
+  	<time datetime="2019-10-15T11:34:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近一直销声匿迹, 其实是为了比赛在搬砖写C++六子棋程序. 首先总结参加被全国大学生机器博弈大赛的各位大佬按在地上摩擦的经历.</p>
+<h5 id="网络是趋势-应用落地还有一段路要走"><a href="#网络是趋势-应用落地还有一段路要走" class="headerlink" title="网络是趋势,应用落地还有一段路要走"></a>网络是趋势,应用落地还有一段路要走</h5><ul>
+<li>经典搜索算法加持下的六子棋程序真心不弱,绝大部分队伍选择了经典搜索作为比赛解决方案.个别神经网络或网络搜索相结合的解决方案做的好的程序实力也是很强,除了我们队的网络弱的离谱,几乎接近random下棋了.<a id="more"></a></li>
+<li>个人感觉网络代替传统估值将是此类博弈游戏的发展趋势, 当前采用网络实际效果弱于经典搜索, 此处并不认为是万能逼近的NN方法不正确, 而更有可能是工程上没有取得好的效果.</li>
+<li>Goole AlphaZero证明了无任何人类先验知识的约束, 强化学习的方案使得网络能达到超出人类能力的水平.这也告诉我们, 许多时候人类的经验知识甚至是奉为真理的历史经验很可能不是最好的, 或者说极有可能是错误的.我们可以近似认为,人类知识实际上是对AI自我学习最终水平的限制与约束.</li>
+<li>但回到现实, 没有多少人能真正有条件很好的训练出AlphaZero形式的深度强化学习神经网络,虽然硬件性能还在飞速提升, 量子计算也愈发使人联想到无限算力的美好未来,但是当下对于相当一部分小伙伴们来说算力不行就是真的不行.</li>
+<li>我们似乎很难从零构建一个强大的棋类网络,没有人类先验知识给了机器更高的学习自由度,同时也给了开发人员更大的网络训练难度.我们需要一个成本与水平的平衡.</li>
+<li>另一方面,通用的方案不一定是最好的,面对六子棋这一具体问题,一些与游戏规则等价的\经过严格数学推理的约束条件(VCDT,TSS等等价倒推)的加入,会使得搜索空间的范围迅速减小,使得网络的学习起步阶段更加容易.<h5 id="理论和实践永远不能一概而论"><a href="#理论和实践永远不能一概而论" class="headerlink" title="理论和实践永远不能一概而论"></a>理论和实践永远不能一概而论</h5></li>
+<li>平时读论文,很少会关注论文作者对实验步骤的描述,往往觉得整体思路我懂了,那就没必要注意细枝末节.但恰恰是我们很多时候指导一个理论是正确有效的,但是真正实践起来却发现效果相差甚远.</li>
+<li>尤其是涉及到深度学习和网络参数结构有关的问题,很多时候拿别人的模型参数来比赛,效果很好,自己一调整立刻完蛋.虽说强化学习选超参也是可行滴,但是算力条件往往告诉你不要多想.</li>
+<li>别人的参数为什么这样设置?结构为什么这样选?特征为什么这样做?论文的效果为什么好?</li>
+<li>理论完胜并不代表实际能行,工程实验和理论公式都重要.</li>
+<li>扯远一点,跳出被贫穷限制的想象力,个人感觉AI的发展到今天,动则上千亿的参数量,顶级AI玩家是否快要迎来下一个算不动了的AI寒冬???应用与理论某种程度上的脱节,到时候底层调参师的应用层面工作是否更有意义???</li>
+</ul>
+<h5 id="关于C-等编成方面的坑"><a href="#关于C-等编成方面的坑" class="headerlink" title="关于C++等编成方面的坑"></a>关于C++等编成方面的坑</h5><ul>
+<li><p>收起科班底层码农的自信,向各种编程知识献出中了好多箭的膝盖.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void * memset ( void * ptr, int value, size_t num );</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这个函数多用来初始化整块的内存,存入相同的值.但是必须注意的是memset()是<strong>按字节赋值的</strong></p>
+</li>
+<li><p>用来初始化char类型变量没问题,其他类型如<code>int</code>可就全靠运气了.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int board[19][19];</span><br><span class="line">memset(board, 0, sizeof(board));</span><br><span class="line"># 完全莫的问题,因为虽然int为32位,memset每8位赋值为0,最终结果还是0.</span><br><span class="line"></span><br><span class="line"># 知道我debug到自闭,然后不经意看到关于memset的说明之前,我都认为这样是没问题的,但是实际上board_type每个元素都是: 0X01010101</span><br><span class="line">int board_type[19][19];</span><br><span class="line">memset(board_type, 1, sizeof(board_type));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>debug 与release 结果不一样的问题<br>其实多半不是问题,网上各种说release下GCC编译器优化导致出错之类的,但是正常人的正确的代码基本不会存在这个问题.毕竟GCC是…事实上的编译标准.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原因排查:</span><br><span class="line">- release下所有的assert()语句不生效,请仔细排查错误.因为assert()也无能为力了.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>tensorflow1.x的一些坑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 适合将tensor某一/某些纬度作精细切割,可以切成任意大小</span><br><span class="line">tf.slice()</span><br><span class="line"># 适合将tensor沿着一个纬度切割成大小相等的几块,必须能整除</span><br><span class="line">tf.split()</span><br><span class="line"># 可以沿着一个轴拼接任意多tensor</span><br><span class="line">tf.concat()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>希望实验室尽快用上tensorflow2.0.</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">conda</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/默认分类//" class="article-tag-list-link color5">默认分类</a>
+        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.mrloading.cn/2019/10/15/C-爬坑记录/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/07/conda-install-fails/" class="archive-article-date">
-  	<time datetime="2019-09-07T13:39:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-07</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/20/windows下conda安装tensorflow-报错DLL-load-failed-找不到指定的模块/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">windows下conda安装tensorflow 报错DLL load failed: 找不到指定的模块</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/07/conda-install-fails/">conda-install-fails</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">conda</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">运维</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/conda//" class="article-tag-list-link color1">conda</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -286,9 +351,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
