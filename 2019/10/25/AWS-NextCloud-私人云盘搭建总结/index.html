@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.mrloading.cn">
-  <title>conda-install-fails | Home</title>
+  <title>AWS NextCloud 私人云盘搭建总结 | Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="维护服务器conda环境时遇到conda install 失败的问题">
-<meta name="keywords" content="conda,python,运维">
+  <meta name="description" content="经常遇到跨平台分享小文件的需求，早就有意向搭建一个个人云盘，本次就AWS的免费款EC2搭建NextCloud云盘踩坑总结。">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="conda-install-fails">
-<meta property="og:url" content="http://www.mrloading.cn/2019/09/07/conda-install-fails/index.html">
+<meta property="og:title" content="AWS NextCloud 私人云盘搭建总结">
+<meta property="og:url" content="http://www.mrloading.cn/2019/10/25/AWS-NextCloud-私人云盘搭建总结/index.html">
 <meta property="og:site_name" content="Home">
-<meta property="og:description" content="维护服务器conda环境时遇到conda install 失败的问题">
+<meta property="og:description" content="经常遇到跨平台分享小文件的需求，早就有意向搭建一个个人云盘，本次就AWS的免费款EC2搭建NextCloud云盘踩坑总结。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-07T14:04:16.307Z">
+<meta property="og:updated_time" content="2019-10-24T17:50:38.084Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="conda-install-fails">
-<meta name="twitter:description" content="维护服务器conda环境时遇到conda install 失败的问题">
+<meta name="twitter:title" content="AWS NextCloud 私人云盘搭建总结">
+<meta name="twitter:description" content="经常遇到跨平台分享小文件的需求，早就有意向搭建一个个人云盘，本次就AWS的免费款EC2搭建NextCloud云盘踩坑总结。">
   
     <link rel="alternative" href="/atom.xml" title="Home" type="application/atom+xml">
   
@@ -147,39 +147,51 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-conda-install-fails" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-AWS-NextCloud-私人云盘搭建总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      conda-install-fails
+      AWS NextCloud 私人云盘搭建总结
     </h1>
   
 
         
-        <a href="/2019/09/07/conda-install-fails/" class="archive-article-date">
-  	<time datetime="2019-09-07T13:39:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-07</time>
+        <a href="/2019/10/25/AWS-NextCloud-私人云盘搭建总结/" class="archive-article-date">
+  	<time datetime="2019-10-24T17:10:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li>运行<code>conda install ***</code>或<code>conda search ***</code>失败</li>
-</ul>
-<p>日志如下:</p>
+        <p>经常遇到跨平台分享小文件的需求，早就有意向搭建一个个人云盘。试过腾讯学生机，无奈1Mb/s的带宽限制;试过阿里云的ECS用过几个月总之对价格学生党还是难有吸引力，没试过阿里学生机，学生机普遍带宽有较大限制。本次就AWS的免费款EC2搭建NextCloud云盘踩坑总结。<br>配置：</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ conda install nb_conda_kernels                                                                  (py37)</span><br><span class="line">...</span><br><span class="line">省略数行报错</span><br><span class="line">...</span><br><span class="line">json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 9 column 5 (char 196)</span><br><span class="line">...</span><br><span class="line">failed</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OS: Ubuntu Server18.04</span><br><span class="line">RAM：2G</span><br><span class="line">CPU：1</span><br><span class="line">SSD: 10G</span><br></pre></td></tr></table></figure>
 
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ul>
-<li>这时候请示一下清空缓存<code>conda clean -i</code>, <strong>可能好使</strong>.</li>
+<p>方案：LNMP + NextCloud</p>
+<h4 id="安装LNMP"><a href="#安装LNMP" class="headerlink" title="安装LNMP"></a>安装LNMP</h4><h4 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h4><ul>
+<li><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get isntall ngnix</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置：</p>
+<blockquote>
+<p>整体参照了社区的这篇文章:<br><a href="https://juejin.im/post/5d81906c518825300a3ec7ca" target="_blank" rel="noopener">nginx 这一篇就够了</a></p>
+</blockquote>
+</li>
 </ul>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ul>
-<li>placeholder （刚接手维护工作，很多地方还不清楚，请大佬多指教）</li>
+<p>/etc/nginx/nginx.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"># ngix 运行的用户和用户组</span><br><span class="line">user www-data;</span><br><span class="line"></span><br><span class="line">#nginx 进程数，建议设置为等于 CPU 总核心数。</span><br><span class="line">worker_processes auto;</span><br><span class="line"></span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line">include /etc/nginx/modules-enabled/*.conf;</span><br><span class="line"></span><br><span class="line">#一个 nginx 进程打开的最多文件描述符数目，理论值应该是最多打开文件数（系统的值 ulimit -n）与 nginx 进程数相除，但是 nginx 分配请求并不均匀，所以建议与 ulimit -n 的值保持一致。</span><br><span class="line">worker_rlimit_nofile 65535;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    #参考事件模型，use [ kqueue | rtsig | epoll | /dev/poll | select | poll ];</span><br><span class="line">    #epoll 模型是 Linux 2.6 以上版本内核中的高性能网络 I/O 模型，</span><br><span class="line">    #如果跑在 FreeBSD 上面，就用 kqueue 模型。</span><br><span class="line">    #epoll 是多路复用 IO(I/O Multiplexing) 中的一种方式，</span><br><span class="line">    #但是仅用于 linux2.6 以上内核，可以大大提高 nginx 的性能</span><br><span class="line">    use epoll;</span><br><span class="line"></span><br><span class="line">    ############################################################################</span><br><span class="line">    #单个后台 worker process 进程的最大并发链接数</span><br><span class="line">    #事件模块指令，定义 nginx 每个进程最大连接数，默认 1024。</span><br><span class="line">    #最大客户连接数由 worker_processes 和 worker_connections 决定</span><br><span class="line">    #即 max_client=worker_processes*worker_connections,</span><br><span class="line">    #在作为反向代理时：max_client=worker_processes*worker_connections / 4</span><br><span class="line">    worker_connections 65535;</span><br><span class="line">    ############################################################################</span><br><span class="line">    # multi_accept on;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#设定 http 服务器</span><br><span class="line">http &#123;</span><br><span class="line">    include mime.types; #文件扩展名与文件类型映射表</span><br><span class="line">    default_type application/octet-stream; #默认文件类型</span><br><span class="line">    #charset utf-8; #默认编码</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">	</span><br><span class="line">    sendfile on; #开启高效文件传输模式，sendfile 指令指定 nginx 是否调用 sendfile 函数来输出文件，对于普通应用设为 on，如果用来进行下载等应用磁盘 IO 重负载应用，可设置为 off，以平衡磁盘与网络 I/O 处理速度，降低系统的负载。注意：如果图片显示不正常把这个改成 off。</span><br><span class="line">    autoindex on; #开启目录列表访问，合适下载服务器，默认关闭。</span><br><span class="line">    tcp_nopush on; #防止网络阻塞</span><br><span class="line">    tcp_nodelay on; #防止网络阻塞</span><br><span class="line">	</span><br><span class="line">    server_names_hash_bucket_size 128; #服务器名字的 hash 表大小</span><br><span class="line">    client_header_buffer_size 500m; #上传文件大小限制</span><br><span class="line">    large_client_header_buffers 4 64k; #设定请求缓</span><br><span class="line">    client_max_body_size 8m; #设定请求缓</span><br><span class="line">	</span><br><span class="line">    ##连接客户端超时时间各种参数设置##</span><br><span class="line">    keepalive_timeout  120;          #单位是秒，客户端连接时时间，超时之后服务器端自动关闭该连接 如果 nginx 守护进程在这个等待的时间里，一直没有收到浏览发过来 http 请求，则关闭这个 http 连接</span><br><span class="line">    #client_header_timeout 10;        #客户端请求头的超时时间</span><br><span class="line">    #client_body_timeout 10;          #客户端请求主体超时时间</span><br><span class="line">    #reset_timedout_connection on;    #告诉 nginx 关闭不响应的客户端连接。这将会释放那个客户端所占有的内存空间</span><br><span class="line">    #send_timeout 10;                 #客户端响应超时时间，在两次客户端读取操作之间。如果在这段时间内，客户端没有读取任何数据，nginx 就会关闭连接</span><br><span class="line">    ################################</span><br><span class="line"></span><br><span class="line">    ##FastCGI 相关参数是为了改善网站的性能：减少资源占用，提高访问速度。下面参数看字面意思都能理解。</span><br><span class="line">    #fastcgi_connect_timeout 300;</span><br><span class="line">    #fastcgi_send_timeout 300;</span><br><span class="line">    #fastcgi_read_timeout 300;</span><br><span class="line">    #fastcgi_buffer_size 64k;</span><br><span class="line">    #fastcgi_buffers 4 64k;</span><br><span class="line">    #fastcgi_busy_buffers_size 128k;</span><br><span class="line">    #fastcgi_temp_file_write_size 128k;</span><br><span class="line"></span><br><span class="line">    ###作为代理缓存服务器设置#######</span><br><span class="line">    ###先写到 temp 再移动到 cache</span><br><span class="line">    #proxy_cache_path /var/tmp/nginx/proxy_cache levels=1:2 keys_zone=cache_one:512m inactive=10m max_size=64m;</span><br><span class="line">    ###以上 proxy_temp 和 proxy_cache 需要在同一个分区中</span><br><span class="line">    ###levels=1:2 表示缓存级别，表示缓存目录的第一级目录是 1 个字符，第二级目录是 2 个字符 keys_zone=cache_one:128m 缓存空间起名为 cache_one 大小为 512m</span><br><span class="line">    ###max_size=64m 表示单个文件超过 128m 就不缓存了  inactive=10m 表示缓存的数据，10 分钟内没有被访问过就删除</span><br><span class="line">    #########end####################</span><br><span class="line"></span><br><span class="line">    ##</span><br><span class="line">	# Gzip Settings</span><br><span class="line">	##</span><br><span class="line"></span><br><span class="line">    gzip on; #开启 gzip 压缩输出</span><br><span class="line">	</span><br><span class="line">    gzip_min_length 1k; #最小压缩文件大小</span><br><span class="line">    gzip_buffers 4 16k; #压缩缓冲区</span><br><span class="line">    # gzip_http_version 1.0; #压缩版本（默认 1.1，前端如果是 squid2.5 请使用 1.0）</span><br><span class="line">    gzip_comp_level 6; #压缩等级，gzip 压缩比，1 为最小，处理最快；9 为压缩比最大，处理最慢，传输速度最快，也最消耗 CPU；</span><br><span class="line">    #gzip_types text/plain application/x-javascript text/css application/xml text/xml application/xml+rss text/javascript;</span><br><span class="line">    #压缩类型，默认就已经包含 text/html，所以下面就不用再写了，写上去也不会有问题，但是会有一个 warn。</span><br><span class="line">    #gzip_vary on;</span><br><span class="line">    ##############################</span><br><span class="line"></span><br><span class="line">    #limit_zone crawler $binary_remote_addr 10m; #开启限制 IP 连接数的时候需要使用</span><br><span class="line">    </span><br><span class="line">	##</span><br><span class="line">	# Virtual Host Configs</span><br><span class="line">	##</span><br><span class="line">	</span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line">    include /etc/nginx/sites-enabled/*;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#mail &#123;</span><br><span class="line">#	# See sample authentication script at:</span><br><span class="line">#	# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript</span><br><span class="line"># </span><br><span class="line">#	# auth_http localhost/auth.php;</span><br><span class="line">#	# pop3_capabilities &quot;TOP&quot; &quot;USER&quot;;</span><br><span class="line">#	# imap_capabilities &quot;IMAP4rev1&quot; &quot;UIDPLUS&quot;;</span><br><span class="line"># </span><br><span class="line">#	server &#123;</span><br><span class="line">#		listen     localhost:110;</span><br><span class="line">#		protocol   pop3;</span><br><span class="line">#		proxy      on;</span><br><span class="line">#	&#125;</span><br><span class="line"># </span><br><span class="line">#	server &#123;</span><br><span class="line">#		listen     localhost:143;</span><br><span class="line">#		protocol   imap;</span><br><span class="line">#		proxy      on;</span><br><span class="line">#	&#125;</span><br><span class="line">#&#125;</span><br></pre></td></tr></table></figure>
+
+<p>/etc/nginx/sites-available/file_server</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#虚拟主机的配置</span><br><span class="line">server &#123;</span><br><span class="line">    #监听端口</span><br><span class="line">    listen 80;</span><br><span class="line"></span><br><span class="line">    #域名可以有多个，用空格隔开</span><br><span class="line">    server_name file.mrloading.cn;</span><br><span class="line">    index index.php index.html index.htm;</span><br><span class="line"></span><br><span class="line">    root /var/www/nextcloud;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root /var/www/nextcloud;</span><br><span class="line">    &#125;</span><br><span class="line">    location  ~ \.php($|/) &#123;</span><br><span class="line">        include snippets/fastcgi-php.conf;</span><br><span class="line">        #fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">        fastcgi_pass unix:/run/php/php7.2-fpm.sock;</span><br><span class="line">        #fastcgi_index index.php;</span><br><span class="line"></span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  $request_filename;</span><br><span class="line">        fastcgi_split_path_info  ^(.+?\.php)(.*)$;</span><br><span class="line">        #fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  /var/www/nextcloud/$fastcgi_script_name;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #图片缓存时间设置</span><br><span class="line">    #location ~ .*.(gif|jpg|jpeg|png|bmp|swf)$ &#123;</span><br><span class="line">    #    expires 10d;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">    #JS 和 CSS 缓存时间设置</span><br><span class="line">    #location ~ .*.(js|css)?$ &#123;</span><br><span class="line">    #    expires 1h;</span><br><span class="line">    #&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>要注意的几点：<br><code>fastcgi_pass 127.0.0.1:9000;</code>与<code>fastcgi_pass unix:/run/php/php7.2-fpm.sock;</code>的选择：<br>之前在centos下用的是<code>9000端口</code>通信方式，今天在使用ubuntu时发现本机是<code>sock</code>通信方式，请注意根据<code>.sock</code>文件的位置修改路径。</li>
 </ul>
+<p><code>fastcgi_split_path_info</code>正则表达式的选择：<br>是否需要<code>fastcgi_split_path_info</code>？如果网站链接形式只有<code>http://www.test.com/dir2/file.php</code>则不需要，若网站链接附带参数如<code>http://www.test.com/dir2/file.php？login=1</code>或<code>http://www.test.com/dir2/file.php/login/admin</code>等形式，则需要指定如何分割url。<br>分割时请注意：<code>？</code>后跟参数和<code>/</code>后跟参数处理方式略有不同。</p>
 
       
 
@@ -193,15 +205,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">conda</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">运维</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -213,7 +217,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/conda//" class="article-tag-list-link color1">conda</a>
+        			<a href="/categories/默认分类//" class="article-tag-list-link color5">默认分类</a>
         		</li>
       		
 		</ul>
@@ -268,7 +272,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.mrloading.cn/2019/09/07/conda-install-fails/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.mrloading.cn/2019/10/25/AWS-NextCloud-私人云盘搭建总结/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -282,18 +286,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/08/frp内网穿透/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          frp内网穿透
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/09/06/入坑hexo/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">入坑hexo</div>
+    <a href="/2019/10/15/C-爬坑记录/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C++爬坑记录</div>
       <i class="icon-circle-right"></i>
     </a>
   
