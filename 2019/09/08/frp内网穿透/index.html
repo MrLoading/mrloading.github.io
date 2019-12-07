@@ -168,13 +168,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>本文实现了:<br>校园网资源的外网访问</p>
-</blockquote>
-<a id="more"></a>
-<blockquote>
-<p>frp 是一个可用于内网穿透的高性能的反向代理应用,而且开源.<br>临近假期,但作为一个小白,想用外网访问校园网的学术资源,各平台的内网穿透教程无法满足需求(看不懂).<br>几经失败,终于实现了frp反向代理,现将经验总结如下:</p>
-</blockquote>
-<h4 id="配置前准备"><a href="#配置前准备" class="headerlink" title="配置前准备"></a>配置前准备</h4><ul>
+<p>本文实现了:<br>校园网资源的外网访问<br><a id="more"></a><br>frp 是一个可用于内网穿透的高性能的反向代理应用,而且开源.<br>临近假期,但作为一个小白,想用外网访问校园网的学术资源,各平台的内网穿透教程无法满足需求(看不懂).<br>几经失败,终于实现了frp反向代理,现将经验总结如下:</p>
+<h4 id="配置前准备"><a href="#配置前准备" class="headerlink" title="配置前准备"></a>配置前准备</h4></blockquote>
+<ul>
 <li>公网服务器1台(有公网IP, 我的是centos7环境)<ul>
 <li>内网服务器1台（我的是win10环境，学校机房都是windows，其他系统配置类似）。</li>
 </ul>
@@ -192,18 +188,16 @@
 </ul>
 </li>
 </ol>
-<ol start="2">
+<ol>
 <li>公网服务器端的安装配置</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载frp软件包</span></span><br><span class="line">wget https://github.com/fatedier/frp/releases/download/v0.22.0/frp_0.22.0_linux_386.tar.gz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar -zxvf  frp_0.22.0_linux_386.tar.gz</span><br><span class="line"><span class="comment"># 配置</span></span><br><span class="line">vi ./frps.ini</span><br></pre></td></tr></table></figure>
-
 <p>按<code>i</code>进入编辑模式,写入如下内容:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000           #内网服务器与公网服务器绑定的进行通信的端口</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个端口仅仅是用来client和server通信,server和client所有的通信都通过这个端口</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> client可能有多个,client配置也是易变的</span></span><br></pre></td></tr></table></figure>
-
 <p>按<code>ESC</code>到命令模式,输入<code>:wq</code>保存退出</p>
 <p>启动服务<code>./frps -c ./frps.ini</code>,这是前台启动,后台启动命令为<code>nohup ./frps -c ./frps.ini &amp;</code></p>
 <p>另一种更方便后台运行方式为使用<code>tmux</code>，详见<a href="#">tmux基本操作</a> </p>
-<ol start="3">
+<ol>
 <li><p>内网服务器端的安装配置</p>
 <ul>
 <li><p>配置启动frpc</p>
@@ -213,14 +207,10 @@
 </li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 233.333.333.333   #公网服务器ip</span><br><span class="line">server_port = 7000            #与服务端bind_port一致</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">公网通过ssh访问内网服务器</span></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp              #连接协议</span><br><span class="line">local_ip = 127.0.0.1 #内网服务器ip</span><br><span class="line">local_port = 8082         #ssh转发端口号(后面用到S-S转发,8082是S-S的服务端口)</span><br><span class="line">remote_port = 6000      #自定义的访问内部ssh端口号</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>关于配置文件的一些<strong>胡思乱想</strong>:<br><code>remote_port = 6000</code> 这个端口实际上指的是<code>server</code>的端口,<code>server</code>访问server:<code>6000</code>—&gt;client:<code>8082</code><br><strong>疑问</strong>:<br>   为什么server的哪个端口映射到client:8082<code>不是在server端配置的</code>? <code>而是client决定的</code>,反人类啊!<br><strong>胡乱猜测</strong>:<br> <code>前提:</code><br>client可能有多个,client配置也是易变<br> <code>导致:</code><br>server不知道client会有多少个, 无法提前准备转发端口,<br>即使提前预留的server端的端口, 也无法知道每个端口具体留给哪个client(都不知道有几个client)<br><code>解决方案:</code><br>由client通知server它该用自己的哪个端口,(通过server_port = 7000,bind_port = 7000 告知)<br><strong>优点:</strong><br>server的端口是十分宝贵的,当client上线再分配server端口,client下线就释放.节约端口资源,灵活性高,减少了server端的配置修改次数<br><strong>缺点:</strong><br>1.client指明了要用server的哪个端口,但<code>server可能满足不了client</code></p>
-<ol start="2">
-<li>不能提前管理防火墙的端口开关, 若为了方便关闭防火墙则<code>会有安全隐患</code></li>
-</ol>
-<p><strong>如:</strong></p>
+<p>关于配置文件的一些<strong>胡思乱想</strong>:<br><code>remote_port = 6000</code> 这个端口实际上指的是<code>server</code>的端口,<code>server</code>访问server:<code>6000</code>—-&gt;client:<code>8082</code><br><strong>疑问</strong>:<br>   为什么server的哪个端口映射到client:8082<code>不是在server端配置的</code>? <code>而是client决定的</code>,反人类啊!<br><strong>胡乱猜测</strong>:<br> <code>前提:</code><br>client可能有多个,client配置也是易变<br> <code>导致:</code><br>server不知道client会有多少个, 无法提前准备转发端口,<br>即使提前预留的server端的端口, 也无法知道每个端口具体留给哪个client(都不知道有几个client)<br><code>解决方案:</code><br>由client通知server它该用自己的哪个端口,(通过server_port = 7000,bind_port = 7000 告知)<br><strong>优点:</strong><br>server的端口是十分宝贵的,当client上线再分配server端口,client下线就释放.节约端口资源,灵活性高,减少了server端的配置修改次数<br><strong>缺点:</strong><br>1.client指明了要用server的哪个端口,但<code>server可能满足不了client</code></p>
 <ol>
+<li>不能提前管理防火墙的端口开关, 若为了方便关闭防火墙则<code>会有安全隐患</code><br><strong>如:</strong></li>
 <li><code>client:  remote_port = 80</code>指明要用server的80端口, 如果server:80已经<code>被web_server占用</code>, 则会导致端口分配失败</li>
 <li>client要求的端口被防火墙保护,分配<code>成功后也无法通信</code></li>
 </ol>
@@ -234,34 +224,37 @@
 </li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">"server":"0.0.0.0",                  # 如果走IPv6线路,填”::”</span><br><span class="line">"server_port":8082,              # S-S服务端口</span><br><span class="line">"local_address":"127.0.0.1",</span><br><span class="line">"local_port":1080,</span><br><span class="line">"password":"barfoo!",           # S-S密码</span><br><span class="line">"timeout":600,</span><br><span class="line">"method":"rc4-md5",           # 加密方式</span><br><span class="line">"http_proxy": false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在当前目录下按<code>shift+右键</code>,选择启动powershell<br>在powershell中执行<code>./shadowsocks-libqss.exe -S</code>启动S-S</p>
 <p><strong>到此,内网穿功能透架设完成, 在外网怎么使用哪?</strong></p>
 <p>Windows平台:<br><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">shadowsocks-windows</a> 下载最新S-SWindows客户端<br>启动后双击任务栏小飞机图标,编辑服务器:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">属性</th>
-<th align="left">操作</th>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">操作</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">服务器地址</td>
-<td align="left">233.333.333(填公网服务器的IP地址)</td>
+<tbody>
+<tr>
+<td style="text-align:left">服务器地址</td>
+<td style="text-align:left">233.333.333(填公网服务器的IP地址)</td>
 </tr>
 <tr>
-<td align="left">服务器端口</td>
-<td align="left">6000</td>
+<td style="text-align:left">服务器端口</td>
+<td style="text-align:left">6000</td>
 </tr>
 <tr>
-<td align="left">密码</td>
-<td align="left">填上一步的S-S密码</td>
+<td style="text-align:left">密码</td>
+<td style="text-align:left">填上一步的S-S密码</td>
 </tr>
 <tr>
-<td align="left">加密</td>
-<td align="left">填和上一步加密方式相同</td>
+<td style="text-align:left">加密</td>
+<td style="text-align:left">填和上一步加密方式相同</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>保存后在任务栏小飞机图标右键选择服务器使用刚刚编辑的这个服务器,代理方式为<strong>全局代理</strong></p>
 <h4 id="改进之处"><a href="#改进之处" class="headerlink" title="改进之处"></a>改进之处</h4><ul>
 <li>不能代理172.*等局域网的ip（也可能是我不会配置）</li>
@@ -523,6 +516,10 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -536,10 +533,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">运维</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">

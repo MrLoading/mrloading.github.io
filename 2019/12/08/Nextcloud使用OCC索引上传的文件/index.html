@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://www.mrloading.cn">
-  <title>入坑hexo | Home</title>
+  <title>Nextcloud使用OCC索引上传的文件 | Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="思考不多，纵身入坑。">
-<meta name="keywords" content="随笔">
+  <meta name="description" content="使用OCC索引上传到NextCloud的文件">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="入坑hexo">
-<meta property="og:url" content="http://www.mrloading.cn/2019/09/06/入坑hexo/index.html">
+<meta property="og:title" content="Nextcloud使用OCC索引上传的文件">
+<meta property="og:url" content="http://www.mrloading.cn/2019/12/08/Nextcloud使用OCC索引上传的文件/index.html">
 <meta property="og:site_name" content="Home">
-<meta property="og:description" content="思考不多，纵身入坑。">
+<meta property="og:description" content="使用OCC索引上传到NextCloud的文件">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-06T13:46:46.421Z">
+<meta property="og:updated_time" content="2019-12-07T17:27:36.418Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="入坑hexo">
-<meta name="twitter:description" content="思考不多，纵身入坑。">
+<meta name="twitter:title" content="Nextcloud使用OCC索引上传的文件">
+<meta name="twitter:description" content="使用OCC索引上传到NextCloud的文件">
   
     <link rel="alternative" href="/atom.xml" title="Home" type="application/atom+xml">
   
@@ -147,50 +147,41 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-入坑hexo" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Nextcloud使用OCC索引上传的文件" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      入坑hexo
+      Nextcloud使用OCC索引上传的文件
     </h1>
   
 
         
-        <a href="/2019/09/06/入坑hexo/" class="archive-article-date">
-  	<time datetime="2019-09-06T12:35:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
+        <a href="/2019/12/08/Nextcloud使用OCC索引上传的文件/" class="archive-article-date">
+  	<time datetime="2019-12-07T16:56:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>思考不多，纵身跃下。<br><a id="more"></a></p>
-<h2 id="读过、实践过、总结过？"><a href="#读过、实践过、总结过？" class="headerlink" title="读过、实践过、总结过？"></a>读过、实践过、总结过？</h2><ul>
-<li>开学已经步入大三了，两年大学时间一直没闲着，但一到开学季各种迷茫感还是莫名会有。</li>
-<li><p>平时总觉得自己折腾比较多，也踩过很多坑。折腾安卓、逆向、linux、路由器、人工智能…</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ : 那你书面总结过吗？</span><br><span class="line">$ : 都摸鱼了...</span><br></pre></td></tr></table></figure>
+        <p>有时浏览器上传文件容易失败而且比较慢，而且服务器的22端口sftp一般不限速，上传较快。在把文件上传到NextCloud的相应目录<code>nextcloud/data/[user]/files/</code>后，因为NextCloud数据库中没有相应的索引，所以不能在web界面看到相应的文件。<br>如果需要手动索引可使用OCC（NextCloud的命令行程序）手动刷新索引。<br><a id="more"></a></p>
+<ul>
+<li><p>修改文件权限<br>文件手动复制到<code>nextcloud/data/[user]/files/目录后用户组和权限一般不是web默认的</code>www-data`（ubuntu下使用LNMP）可能会造成NextCloud无法访问，建议修改用户组和权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ls data/mrloading/files/ | grep Web* | xargs -n1  -I &#123;&#125; sudo  chown www-data:www-data data/mrloading/files/&#123;&#125;</span><br><span class="line"></span><br><span class="line">sudo ls data/mrloading/files/ | grep Web* | xargs -n1  -I &#123;&#125; sudo  chmod 644  data/mrloading/files/&#123;&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>做为coding人员，总结和积累是很重要的。</p>
+<li><p>使用occ<br>occ位于NextCloud安装目录下，是php开发的，所以要用php启动运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u www-data php occ</span><br></pre></td></tr></table></figure>
 </li>
-<li>尝试过自己写markdown等。试过自己买服务器建站也玩儿不转WordPress，因各种审核最后都不了了之（最讨厌建站还得向提供商提交整个族谱的实名操作）。保存在本地缺乏管理、各种丢失…</li>
-</ul>
-<h2 id="理解和教会别人是两码事"><a href="#理解和教会别人是两码事" class="headerlink" title="理解和教会别人是两码事"></a>理解和教会别人是两码事</h2><ul>
-<li>偶尔有同学讨论问题，问到自己实践过的也说不出个所以然。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ : 都会了吗？</span><br><span class="line">$ : 我就算...也不可能不会（膨胀ing）。</span><br><span class="line"></span><br><span class="line">$ : 讲出来。</span><br><span class="line">$ : emmmm..... 真香。</span><br></pre></td></tr></table></figure>
+<li><p>扫描添加文件<br>occ文件命令有多个，还有很多其他命令，这里并未研究，只使用<code>files:scan</code>即可达成目标。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u www-data php occ files:scan --all #其中的www-data为文件拥有者的用户名</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>此时答不上来的话一般人会很自闭的，如果是程序员，那就自闭++</p>
-<h2 id="从现在开始写博客"><a href="#从现在开始写博客" class="headerlink" title="从现在开始写博客"></a>从现在开始写博客</h2><ul>
-<li>假期偶然看到了实验室祖传的《暗时间》这本书，作者<code>从现在开始写博客</code>的建议使得我写总结博客的想法又一次燃起。</li>
-<li>后经学长建议，入坑hexo。</li>
-</ul>
-<hr>
 <blockquote>
-<p>如果你逼着自己将一些不成熟的想法写下来，看着自己写的内容，试着进一步拓展它们，就有可能在理性的道路上走得很远，很远。<br>———《暗时间》</p>
+<p>occ详解见大佬博客<br><a href="https://www.orgleaf.com/2502.html" target="_blank" rel="noopener">https://www.orgleaf.com/2502.html</a></p>
 </blockquote>
-<p> 嗯，即刻开始吧。</p>
 
       
 
@@ -204,7 +195,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -216,7 +207,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
+        			<a href="/categories/默认分类//" class="article-tag-list-link color5">默认分类</a>
         		</li>
       		
 		</ul>
@@ -271,7 +262,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://www.mrloading.cn/2019/09/06/入坑hexo/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://www.mrloading.cn/2019/12/08/Nextcloud使用OCC索引上传的文件/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -285,15 +276,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/07/conda-install-fails/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          conda-install-fails
-        
-      </div>
-    </a>
   
+    <a href="/2019/10/25/AWS-NextCloud-私人云盘搭建总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AWS NextCloud 私人云盘搭建总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
